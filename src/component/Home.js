@@ -1,37 +1,43 @@
 import React, { useState } from 'react';
 
 const Home = () => {
-    const [input, setInput] = useState('');
+    const [inputUrl, setInput] = useState('');
     const [result, setResult] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(e);
 
-        if (input) {
-            const inputId = input;
-            console.log(input);
-            fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${inputId}`, {
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-host": "youtube-mp36.p.rapidapi.com",
-                    "x-rapidapi-key": "42d5636d4amsha98816696790f3fp1930e0jsn59502490e46b"
-                }
-            })
-                .then(res => res.json()
-                )
-                .then(data => {
-                    console.log(data);
-                    setResult(data);
-                    // if (data.link && data.msg === 'success') {
-                    //     setResult(data);
-                    // } else {
-                    //     setResult({});
-                    // }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
+        if (inputUrl) {
+            console.log('inputUrl:- ', inputUrl);
+            const urlArray = inputUrl.split("=");
+            console.log('videoId:-', urlArray[1]);
+            const videoId = urlArray[1];
+            console.log('host-', process.env.REACT_APP_RAPID_API_HOST)
+            console.log('key-', process.env.REACT_APP_API_KEY)
+
+
+            // fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+            //     "method": "GET",
+            //     "headers": {
+            //         "x-rapidapi-host": `"${process.env.rapidApiHost}"`,
+            //         "x-rapidapi-key": `"${process.env.ApiKey}"`
+            //     }
+            // })
+            //     .then(res => res.json()
+            //     )
+            //     .then(data => {
+            //         console.log(data);
+            //         setResult(data);
+            //         // if (data.link && data.msg === 'success') {
+            //         //     setResult(data);
+            //         // } else {
+            //         //     setResult({});
+            //         // }
+            //     })
+            //     .catch(err => {
+            //         console.error(err);
+            //     });
 
 
         } else {
@@ -50,11 +56,11 @@ const Home = () => {
     return (
         <div>
             <div className='container shadow mx-auto m-4 p-4'>
-                <span class="badge bg-danger fs-1 rounded-pill">Youtube To Audio Converter</span>
+                <span className="badge bg-danger fs-1 rounded-pill">Youtube To Audio Converter</span>
 
-                <form onSubmit={handleSubmit} className="w-50">
+                <form onSubmit={handleSubmit} className="w-75 mx-auto">
                     <div className="input-group mb-3 m-4">
-                        <input type="text" className="form-control" placeholder="Enter Video Id" aria-label="Enter Video Id" aria-describedby="button-addon2" onChange={inputField} />
+                        <input type="text" className="form-control border border-danger" placeholder="Paste Youtube Video Link Here" aria-label="Enter Youtube Video Link Here" aria-describedby="button-addon2" onChange={inputField} />
                         <button className="btn btn-danger" type="submit" id="button-addon2">Submit</button>
                     </div>
                 </form>
@@ -77,7 +83,7 @@ const Home = () => {
                 }
 
                 {
-                    result?.link ? <a href={result.link} type="button" className="btn btn-success" >Download</a> : <></>
+                    result?.link ? <a href={result.link} type="button" className="btn btn-danger" >Download</a> : <></>
                 }
 
             </div>

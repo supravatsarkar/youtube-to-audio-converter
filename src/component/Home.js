@@ -11,33 +11,33 @@ const Home = () => {
         if (inputUrl) {
             console.log('inputUrl:- ', inputUrl);
             const urlArray = inputUrl.split("=");
-            console.log('videoId:-', urlArray[1]);
             const videoId = urlArray[1];
-            console.log('host-', process.env.REACT_APP_RAPID_API_HOST)
-            console.log('key-', process.env.REACT_APP_API_KEY)
+            console.log('videoId:-', videoId);
+            // console.log('host-', process.env.REACT_APP_RAPID_API_HOST)
+            // console.log('key-', process.env.REACT_APP_API_KEY)
 
 
-            // fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
-            //     "method": "GET",
-            //     "headers": {
-            //         "x-rapidapi-host": `"${process.env.rapidApiHost}"`,
-            //         "x-rapidapi-key": `"${process.env.ApiKey}"`
-            //     }
-            // })
-            //     .then(res => res.json()
-            //     )
-            //     .then(data => {
-            //         console.log(data);
-            //         setResult(data);
-            //         // if (data.link && data.msg === 'success') {
-            //         //     setResult(data);
-            //         // } else {
-            //         //     setResult({});
-            //         // }
-            //     })
-            //     .catch(err => {
-            //         console.error(err);
-            //     });
+            fetch(`http://localhost:5000/getYoutubeToAudio`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ videoId })
+            })
+                .then(res => res.json()
+                )
+                .then(data => {
+                    console.log(data);
+                    setResult(data);
+                    // if (data.link && data.msg === 'success') {
+                    //     setResult(data);
+                    // } else {
+                    //     setResult({});
+                    // }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
 
 
         } else {

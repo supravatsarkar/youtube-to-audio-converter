@@ -3,21 +3,30 @@ import React, { useState } from 'react';
 const Home = () => {
     const [inputUrl, setInput] = useState('');
     const [result, setResult] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
         // console.log(e);
 
         if (inputUrl) {
+            setIsLoading(true);
             console.log('inputUrl:- ', inputUrl);
             const urlArray = inputUrl.split("=");
             const videoId = urlArray[1];
             console.log('videoId:-', videoId);
             // console.log('host-', process.env.REACT_APP_RAPID_API_HOST)
             // console.log('key-', process.env.REACT_APP_API_KEY)
+            if (!videoId) {
+                setResult({
+                    msg: 'Enter Valid Link'
+                });
+                setIsLoading(false);
+                return;
+            }
 
-
-            fetch(`http://localhost:5000/getYoutubeToAudio`, {
+            fetch(`https://full-ten-boysenberry.glitch.me/getYoutubeToAudio`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -37,7 +46,9 @@ const Home = () => {
                 })
                 .catch(err => {
                     console.error(err);
-                });
+                }).finally(() => {
+                    setIsLoading(false);
+                })
 
 
         } else {
@@ -55,7 +66,7 @@ const Home = () => {
     }
     return (
         <div>
-            <div className='container shadow mx-auto m-4 p-4'>
+            <div className='container shadow rounded mx-auto m-4 p-4'>
                 <span className="badge bg-danger fs-1 rounded-pill">Youtube To Audio Converter</span>
 
                 <form onSubmit={handleSubmit} className="w-75 mx-auto">
@@ -66,17 +77,23 @@ const Home = () => {
                 </form>
 
                 {
+                    isLoading && <div className="spinner-border text-danger" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                }
+
+                {
                     result.msg && <>
                         {
                             result.msg !== "success" ? <div className="alert alert-danger" role="alert">
                                 {result.msg}
-                            </div> : <div className="alert alert-success" role="alert">
-                                <p>
+                            </div> : <div className='w-50 mx-auto'>
+                                <span class="badge bg-success d-block m-2">
                                     Title: {result.title}
-                                </p>
-                                <p>
+                                </span>
+                                <span class="badge bg-success d-block m-2">
                                     Duration: {((result.duration - (result.duration % 60)) / 60).toFixed(0)} Mint, {Math.round(result.duration % 60)} Sec
-                                </p>
+                                </span>
                             </div>
                         }
                     </>

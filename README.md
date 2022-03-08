@@ -12,7 +12,7 @@
 
 ### About Me:-
 * Supravat Sarkar
-* Jr. Full Stack Developer
+* Jr. Full Stack (MERN) Developer
 * Location: Bankura, West Bengal, India
 * Phone: +919851650495
 * Portfolio: https://my-portfolio-website-ae164.web.app/
@@ -20,6 +20,10 @@
 * Linkedin: https://www.linkedin.com/in/supravat-sarkar-4660161b9/
 * Github: https://github.com/supravatsarkar
 
+### Credit 
+* FronEnd Deployed on - https://app.netlify.com/
+* Backend Deployed on - https://glitch.com/dashboard
+* Youtube To Audio API - https://rapidapi.com/
 
 
 

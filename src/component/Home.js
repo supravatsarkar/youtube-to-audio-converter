@@ -9,12 +9,19 @@ const Home = () => {
 
         e.preventDefault();
         // console.log(e);
-
+        let videoId = '';
         if (inputUrl) {
             setIsLoading(true);
             console.log('inputUrl:- ', inputUrl);
-            const urlArray = inputUrl.split("=");
-            const videoId = urlArray[1];
+            if (inputUrl.startsWith('https://www.youtu.be')) {
+                const urlArray = inputUrl.split("www.youtu.be/");
+                console.log('urlArray', urlArray)
+                videoId = urlArray[1];
+            } else {
+                const urlArray = inputUrl.split("=");
+                videoId = urlArray[1];
+            }
+
             console.log('videoId:-', videoId);
             // console.log('host-', process.env.REACT_APP_RAPID_API_HOST)
             // console.log('key-', process.env.REACT_APP_API_KEY)

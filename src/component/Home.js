@@ -13,8 +13,8 @@ const Home = () => {
         if (inputUrl) {
             setIsLoading(true);
             console.log('inputUrl:- ', inputUrl);
-            if (inputUrl.startsWith('https://www.youtu.be')) {
-                const urlArray = inputUrl.split("www.youtu.be/");
+            if (inputUrl.startsWith('https://youtu.be')) {
+                const urlArray = inputUrl.split("youtu.be/");
                 console.log('urlArray', urlArray)
                 videoId = urlArray[1];
             } else {
@@ -95,10 +95,10 @@ const Home = () => {
                             result.msg !== "success" ? <div className="alert alert-danger" role="alert">
                                 {result.msg}
                             </div> : <div className='w-50 mx-auto'>
-                                <span class="badge bg-success d-block m-2">
+                                <span className="badge bg-success d-block m-2">
                                     Title: {result.title}
                                 </span>
-                                <span class="badge bg-success d-block m-2">
+                                <span className="badge bg-success d-block m-2">
                                     Duration: {((result.duration - (result.duration % 60)) / 60).toFixed(0)} Mint, {Math.round(result.duration % 60)} Sec
                                 </span>
                             </div>
